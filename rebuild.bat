@@ -6,20 +6,21 @@ set "ROOT=%~dp0"
 if not exist "%ROOT%builds" mkdir "%ROOT%builds"
 
 if "%~1"=="" (
-    call :build tetris
-    call :build snake
+    for /d %%D in ("%ROOT%*") do (
+        if /I not "%%~nxD"=="builds" (
+            call :build "%%~nxD"
+        )
+    )
     goto :eof
 )
 
 :args
 if "%~1"=="" goto :eof
 
-if /I "%~1"=="tetris" (
-    call :build tetris
-) else if /I "%~1"=="snake" (
-    call :build snake
+if exist "%ROOT%%~1\" (
+    call :build "%~1"
 ) else (
-    echo Unknown project: %~1
+    echo No folder %~1 exists in parent dir
 )
 
 shift
