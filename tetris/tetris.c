@@ -18,6 +18,20 @@ typedef enum {
     GHOST  = 240
 } Colour;
 
+Colour randColour() {
+    static const Colour Colours[] = {
+        RED,
+        GREEN,
+        BLUE,
+        ORANGE,
+        CYAN,
+        PURPLE,
+        YELLOW
+    };
+
+    return Colours[randint(0, 6)];
+}
+
 typedef struct {
     uint16_t rotations[4];
     char name;
@@ -231,7 +245,7 @@ void clearLines() {
 void spawnPiece() {
     Current.type = Next;
     Current.rot = 0;
-    Current.colour = randint(RED, GHOST-1);
+    Current.colour = randColour();
     Current.pos = (ivec2){3, -2};
 
     Next = nextFromBag();
@@ -419,7 +433,7 @@ int main() {
     shuffleBag();
 
     Next = nextFromBag();
-    NextColour = randint(RED, GHOST-1);
+    NextColour = randColour();
 
     spawnPiece();
 
