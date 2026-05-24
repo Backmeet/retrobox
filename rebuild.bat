@@ -29,7 +29,7 @@ goto args
 :build
 echo Building %~1...
 
-gcc -I"%ROOT%.." "%ROOT%%~1\*.c" -o "%ROOT%builds\%~1.exe"
+gcc -I"%ROOT%.." "%ROOT%%~1\*.c" -o "%ROOT%builds\%~1.exe" -static
 
 if errorlevel 1 (
     echo Failed to build %~1
